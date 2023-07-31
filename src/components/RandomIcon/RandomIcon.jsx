@@ -9,28 +9,31 @@ import Spinner from '../ui/spinner/Spinner';
 const RandomIcon = () => {
 
     const [icon, setIcon] = useState()
-    const [click, setClick] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [count, setCount] = useState(0)
 
     useEffect(() => {
-        if (click) {
-            getRandomIcon()
-            setClick(false)
-        }
-    }, [click])
-
-    const getRandomIcon = () => {
-        const iconInterv = setTimeout(() => {
+        const intervalId = setInterval(() => {
             const randomIcon = Object.values(fas)[Math.floor(Math.random() * Object.values(fas).length)];
             setIcon(randomIcon)
+            setCount(count - 1)
             setLoading(false)
-        }, 3000)
-    }
+        }, 3000);
+
+        if (count <= 0) {
+            clearInterval(intervalId);
+        }
+        return () => (
+            clearInterval(intervalId)
+        );
+
+    }, [count]);
 
     const handleClick = () => {
-        setClick(true)
+        setCount(count + 1)
         setLoading(true)
     }
+
 
     return (
         <div className={styles.randomIcon}>
@@ -38,7 +41,7 @@ const RandomIcon = () => {
                 {loading ? <Spinner /> : <FontAwesomeIcon icon={icon}></FontAwesomeIcon>}
             </div>
             <div className={styles.randomIcon__button}>
-                <Button title={'Get random icon'}  getRandomIcon={handleClick} />
+                <Button title={'Get random icon'} getRandomIcon={handleClick} />
             </div>
         </div>
     )
