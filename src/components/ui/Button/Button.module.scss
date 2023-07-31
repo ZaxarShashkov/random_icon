@@ -1,0 +1,12 @@
+.button {
+	width: 150px;
+	height: 30px;
+	border: 1px solid gray;
+	border-radius: 8px;
+	font-size: 14px;
+	box-shadow: 2px 4px 6px rgb(238, 235, 235);
+	cursor: pointer;
+	&:active {
+		background-color: rgb(126, 124, 124);
+	}
+}
