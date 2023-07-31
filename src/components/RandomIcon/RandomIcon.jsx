@@ -31,9 +31,10 @@ const RandomIcon = () => {
 
     const handleClick = () => {
         setCount(count + 1)
-        setLoading(true)
+        if (count === 0) {
+            setLoading(true)
+        }
     }
-
 
     return (
         <div className={styles.randomIcon}>
